@@ -1,1 +1,1 @@
- 
+from .index import handler 
