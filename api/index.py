@@ -41,19 +41,33 @@ application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
 
 async def handler(request):
     try:
-        # Получение тела запроса
-        body = await request.body()
-        data = json.loads(body)
+        # Проверяем метод запроса
+        if request.method == 'GET':
+            return {
+                'statusCode': 200,
+                'body': 'Telegram Bot is running!'
+            }
         
-        # Создание объекта Update из данных запроса
-        update = Update.de_json(data, application.bot)
-        
-        # Обработка обновления
-        await application.process_update(update)
-        
+        # Для POST запросов (вебхуки от Telegram)
+        if request.method == 'POST':
+            # Получение тела запроса
+            body = await request.body()
+            data = json.loads(body)
+            
+            # Создание объекта Update из данных запроса
+            update = Update.de_json(data, application.bot)
+            
+            # Обработка обновления
+            await application.process_update(update)
+            
+            return {
+                'statusCode': 200,
+                'body': json.dumps({'status': 'ok'})
+            }
+            
         return {
-            'statusCode': 200,
-            'body': json.dumps({'status': 'ok'})
+            'statusCode': 405,
+            'body': 'Method Not Allowed'
         }
     except Exception as e:
         logger.error(f"Ошибка при обработке запроса: {str(e)}")
