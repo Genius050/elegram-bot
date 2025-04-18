@@ -25,6 +25,21 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Получение токена бота
+TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
+if not TOKEN:
+    logger.error("TELEGRAM_BOT_TOKEN не найден в переменных окружения")
+    raise ValueError("TELEGRAM_BOT_TOKEN не найден в переменных окружения")
+
+# Создание приложения
+application = Application.builder().token(TOKEN).build()
+
+# Добавляем обработчики
+application.add_handler(CommandHandler("start", start))
+application.add_handler(CommandHandler("help", help_command))
+application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
+application.add_handler(CallbackQueryHandler(button_callback))
+
 # Инициализируем VK API
 def init_vk():
     try:
@@ -617,11 +632,4 @@ async def show_tracks(update: Update, context: ContextTypes.DEFAULT_TYPE, tracks
     await update.message.reply_text("Выберите трек:", reply_markup=reply_markup)
 
 def main():
-    application = Application.builder().token(os.getenv("TELEGRAM_TOKEN")).build()
-
-    # Добавляем обработчики
-    application.add_handler(CommandHandler("start", start))
-    application.add_handler(CommandHandler("help", help_command))
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
-
     application.run_polling() 

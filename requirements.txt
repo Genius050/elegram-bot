@@ -1,9 +1,7 @@
-python-telegram-bot==20.7
-python-dotenv==1.0.0
-aiohttp==3.9.1
-fuzzywuzzy==0.18.0
-python-Levenshtein==0.23.0
+python-telegram-bot==20.8
+python-dotenv==1.0.1
 vk-api==11.9.9
 lyricsgenius==3.0.1
-flask==3.0.2
-gunicorn==21.2.0
+fuzzywuzzy==0.18.0
+aiohttp==3.9.3
+requests==2.31.0
