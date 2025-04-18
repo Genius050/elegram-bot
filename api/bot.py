@@ -182,14 +182,13 @@ async def get_m3u8_url(url):
         return None
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "Привет! Я бот для поиска музыки. Выберите действие:",
-        reply_markup=ReplyKeyboardMarkup(
-            [["Поиск по названию"], ["Поиск по тексту"], ["Избранное"]],
-            one_time_keyboard=True,
-            resize_keyboard=True
-        )
-    )
+    await update.message.reply_text('Привет! Я бот. Как я могу помочь?')
+
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text('Вот список доступных команд:\n/start - Начать работу\n/help - Показать справку')
+
+async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(update.message.text)
 
 async def search_lyrics(query):
     logger.info(f"Поиск текста через Genius API: {query}")
@@ -622,8 +621,7 @@ def main():
 
     # Добавляем обработчики
     application.add_handler(CommandHandler("start", start))
-    application.add_handler(CommandHandler("add_favorite", handle_add_favorite))  # Добавляем обработчик для добавления в избранное
-    application.add_handler(CallbackQueryHandler(button_callback))
+    application.add_handler(CommandHandler("help", help_command))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
 
     application.run_polling() 
