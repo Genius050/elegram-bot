@@ -17,9 +17,6 @@
     }
   ],
   "env": {
-    "PYTHONPATH": ".",
-    "TELEGRAM_BOT_TOKEN": "7623464701:AAFgcWxu7Cyt77Kp9loV2aaZkrOVJwS6QRo",
-    "VK_TOKEN": "vk1.a.dXxAUa9TOQTmNePJEby9zYU0nHyOUmg3LCljYoiyDaqXxvTtkjy0pa59frpY73AJkffiE7qZLn79-wS9kSONvEMyCNFsOZYh1d0GLoPeYPYq0CsHNxaWNoRfTbsQxrkOPYOLMVgvXJoQNvkT_n7G0C-j2P40MVmFRV3xSwdRDRwOZkXYNA0RYLrVDrF-OFoOgtGGsfoiN2_KEtoDoNY8zg",
-    "GENIUS_API_TOKEN": "AcmYm1QBtuWfvJwyhoF5DmzKNKFiuI_u-zVJl2sxG0TnkhpeFffwIQPSdwM4Z4yk"
+    "PYTHONPATH": "."
   }
 } 

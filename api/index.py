@@ -39,7 +39,7 @@ application.add_handler(CommandHandler("start", start))
 application.add_handler(CommandHandler("help", help_command))
 application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
 
-def handler(request):
+async def handler(request):
     try:
         # Проверяем метод запроса
         if request.method == 'GET':
@@ -51,14 +51,14 @@ def handler(request):
         # Для POST запросов (вебхуки от Telegram)
         if request.method == 'POST':
             # Получение тела запроса
-            body = request.body
+            body = await request.body()
             data = json.loads(body)
             
             # Создание объекта Update из данных запроса
             update = Update.de_json(data, application.bot)
             
             # Обработка обновления
-            application.process_update(update)
+            await application.process_update(update)
             
             return {
                 'statusCode': 200,
